@@ -1,0 +1,29 @@
+{
+  "name": "recruitment-system-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabpot11/Recruitment-system-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fabpot11/Recruitment-system-backend/issues"
+  },
+  "homepage": "https://github.com/fabpot11/Recruitment-system-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.10",
+    "multer": "^1.4.4",
+    "nodemailer": "^6.7.3",
+    "twilio": "^3.76.1"
+  }
+}
