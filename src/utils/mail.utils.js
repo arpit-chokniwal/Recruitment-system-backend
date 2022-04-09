@@ -13,4 +13,4 @@ const sendMail = async ({ from, to, subject, text }) => {
 
 
 
-module.exports = { sendMail };
+module.exports =  sendMail ;

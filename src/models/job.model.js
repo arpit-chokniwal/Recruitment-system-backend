@@ -10,8 +10,14 @@ const jobSchema = new mongoose.Schema({
     "salary":{ type:Number, required:true },
     "companyImageUrl":{ type:String, required:true },
     "dateOfPost":{ type:String, required:true },
-    "adminSchemaId":{ type:String, required:true }
+    "adminSchemaId":{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Admin",
+        required: true,
+      }
       
+},{
+    versionKey:false
 })
 
 module.exports = mongoose.model('Jobs',jobSchema)

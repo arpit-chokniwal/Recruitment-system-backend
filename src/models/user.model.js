@@ -16,12 +16,17 @@ const userSchema = new mongoose.Schema({
     "experience":{ type:Number, required:true },
     "resume":{ type:String, required:true },
     "qualification":{ type:String, required:true },
-    "jobSchemaId":{ type:String, required:true },
     "isShortListed":{ type:Boolean},
     "isInterviewScheduled":{ type:Boolean },
     "interviewDateTime":{ type:String},
-    "isHired":{ type:Boolean}
-      
+    "isHired":{ type:Boolean},
+    "jobSchemaId":{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Jobs",
+        required: true,
+    }
+},{
+    versionKey:false
 })
 
 module.exports = mongoose.model('User',userSchema)

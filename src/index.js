@@ -7,11 +7,19 @@ const connect = require('./configs/db')
 app.use(cors())
 app.use(express.json())
 
+const admin = require('./controller/admin.ctrl')
+app.use('/admin',admin)
+
+const job = require('./controller/job.ctrl')
+app.use('/job',job)
+
+const user = require('./controller/use.ctrl')
+app.use('/user',user)
+
 
 const Port = 2345 
 app.listen(Port, async()=>{
     try{
-        console.log(1232)
         await connect()
         console.log(`Listen at port ${Port}`);
     }catch(e){
