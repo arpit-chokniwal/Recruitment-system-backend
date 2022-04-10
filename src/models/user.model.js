@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     "pincode":{ type:Number, required:true },
     "email":{ type:String, required:true, unique:true },
     "mobile":{ type:Number, required:true, unique:true },
-    "experience":{ type:Number, required:true },
+    "experience":{ type:String, required:true },
     "resume":{ type:String, required:true },
     "qualification":{ type:String, required:true },
     "isShortListed":{ type:Boolean},
