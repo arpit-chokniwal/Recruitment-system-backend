@@ -4,7 +4,7 @@ const User = require('../models/user.model')
 const uplode = require('../middle/file')
 
 rout.post('/',uplode.single('resume'),async(req,res)=>{
-    console.log(req)
+    // console.log(req)
     try{
         const NewUser = await User.create({
              first_name  : req.body.first_name,
@@ -29,7 +29,7 @@ rout.post('/',uplode.single('resume'),async(req,res)=>{
         })
         return res.status(201).send(NewUser)
     }catch(e){
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
@@ -41,7 +41,7 @@ rout.get('/',async(req,res)=>{
         return res.status(201).send({AllUser})
 
     }catch(e){
-     res.status(400).send(e)       
+     res.status(400).send(e.message)       
     }
 })
 
@@ -53,7 +53,7 @@ rout.patch('/:id', async(req,res)=>{
         return res.status(201).send({UpdateUser})
 
     }catch(e){
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
@@ -65,7 +65,7 @@ rout.delete('/:id',async(req,res)=>{
         const deleteUser = await User.findByIdAndDelete(req.params.id)
         return res.status(201).send({deleteUser})
     }catch(e){
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
