@@ -68,14 +68,17 @@ rout.get('/:id',async(req,res)=>{
 rout.patch('/:id', async(req,res)=>{
     try{
         const UpdateUser = await User.findByIdAndUpdate(req.params.id,req.body,{new:true}).lean().exec()
-       
-        const jobuser = await User.find(UpdateUser.jobSchemaId).lean().exec()
         
-        return res.status(201).send(jobuser)
+        const data = await User.find({jobSchemaId:UpdateUser.jobSchemaId}).lean().exec()
+        
+        return res.status(201).send(data)
+        
     }catch(e){
         res.status(400).send(e.message)
     }
 })
+
+
 
 
 
@@ -87,5 +90,8 @@ rout.delete('/:id',async(req,res)=>{
         res.status(400).send(e.message)
     }
 })
+
+
+
 
 module.exports = rout
