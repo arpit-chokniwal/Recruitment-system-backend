@@ -4,7 +4,7 @@ const User = require('../models/user.model')
 const uplode = require('../middle/file')
 
 rout.post('/',uplode.single('resume'),async(req,res)=>{
-    // console.log(req)
+    
     try{
         const NewUser = await User.create({
              first_name  : req.body.first_name,
@@ -31,6 +31,7 @@ rout.post('/',uplode.single('resume'),async(req,res)=>{
     }catch(e){
         res.status(400).send(e.message)
     }
+
 })
 
 
@@ -46,6 +47,7 @@ rout.get('/',async(req,res)=>{
 })
 
 
+
 rout.patch('/:id', async(req,res)=>{
     try{
         
@@ -56,7 +58,6 @@ rout.patch('/:id', async(req,res)=>{
         res.status(400).send(e.message)
     }
 })
-
 
 
 
