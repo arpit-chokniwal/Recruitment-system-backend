@@ -22,6 +22,20 @@ rout.get('/',async(req,res)=>{
     }
 })
 
+
+rout.get('/:id',async(req,res)=>{
+    try{
+        const AllJob = await Job.find({adminSchemaId:req.params.id}).populate({ path: "adminSchemaId", select: ["companyName", "userName", "email"] }).lean().exec()
+        // console.log(AllJob)
+        
+        return res.status(201).send(AllJob)
+
+    }catch(e){
+        res.status(400).send(e.message)
+    }
+})
+
+
 rout.patch('/:id',async(req,res)=>{
     try{
         const updatedJob = await Job.findByIdAndUpdate(req.params.id,req.body,{new:true}).lean().exec()
