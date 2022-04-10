@@ -5,6 +5,7 @@ const authCheck = async (req, res, next) => {
 
   try {
     const user = await User.findOne({ email: req.body.email });
+    // console.log(user)
     
     if (!user) {
       return res.status(400).json({
@@ -20,7 +21,8 @@ const authCheck = async (req, res, next) => {
       });
     }
     
-    next()
+    return res.status(201).send({user});
+    
    
   } catch (e) {
     return res.status(500).send(e.message);
