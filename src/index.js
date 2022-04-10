@@ -18,12 +18,12 @@ const user = require('./controller/use.ctrl')
 app.use('/user',user)
 
 
-const Port = process.env.PORt || 2345 
+const Port = process.env.PORT || 2345 
 app.listen(Port, async()=>{
     try{
         await connect()
         console.log(`Listen at port ${Port}`);
     }catch(e){
-        console.log(e)        
+        console.log(e)
     }
 })
