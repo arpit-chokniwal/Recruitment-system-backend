@@ -85,10 +85,11 @@ rout.patch('/:id', async(req,res)=>{
 rout.delete('/:id',async(req,res)=>{
     try{
         const deleteUser = await User.findByIdAndDelete(req.params.id)
-        
-        const AllUser = await User.find() .populate({ path:  "jobSchemaId" , select: [ "companyName" ,  "jobTitle" , "city" , "salary" ],populate:{path: "adminSchemaId" ,select:[ "companyName" , "userName" , "email" ]}  }).lean().exec();
 
-        return res.status(201).send(AllUser)
+        const data = await User.find({jobSchemaId:deleteUser.jobSchemaId}).lean().exec()
+        console.log(data)
+        
+        return res.status(201).send(data)
         
     }catch(e){
         res.status(400).send(e.message)
