@@ -72,7 +72,7 @@ rout.patch('/:id', async(req,res)=>{
         const data = await User.find({jobSchemaId:UpdateUser.jobSchemaId}).lean().exec()
         
         return res.status(201).send(data)
-        
+
     }catch(e){
         res.status(400).send(e.message)
     }
@@ -85,7 +85,11 @@ rout.patch('/:id', async(req,res)=>{
 rout.delete('/:id',async(req,res)=>{
     try{
         const deleteUser = await User.findByIdAndDelete(req.params.id)
-        return res.status(201).send({deleteUser})
+        
+        const AllUser = await User.find() .populate({ path:  "jobSchemaId" , select: [ "companyName" ,  "jobTitle" , "city" , "salary" ],populate:{path: "adminSchemaId" ,select:[ "companyName" , "userName" , "email" ]}  }).lean().exec();
+
+        return res.status(201).send(AllUser)
+        
     }catch(e){
         res.status(400).send(e.message)
     }
