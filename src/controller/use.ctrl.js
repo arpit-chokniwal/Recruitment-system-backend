@@ -67,10 +67,8 @@ rout.get('/:id',async(req,res)=>{
 
 rout.patch('/:id', async(req,res)=>{
     try{
-        
         const UpdateUser = await User.findByIdAndUpdate(req.params.id,req.body,{new:true}).lean().exec()
-        return res.status(201).send({UpdateUser})
-
+        return res.status(201).send(UpdateUser)
     }catch(e){
         res.status(400).send(e.message)
     }
