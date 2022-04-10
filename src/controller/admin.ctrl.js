@@ -1,7 +1,7 @@
 const express = require('express')
-const authCheck = require('../middle/auth')
 const rout = express.Router()
 const Admin = require('../models/admin.model')
+const authCheck = require('../middle/auth')
 
 rout.post('/',authCheck,async(req,res)=>{
     try{

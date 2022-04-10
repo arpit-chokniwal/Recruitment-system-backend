@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 const connect = require('./configs/db')
+require('dotenv').config({ path: '../.env' });
 
 
 app.use(cors())
@@ -17,7 +18,7 @@ const user = require('./controller/use.ctrl')
 app.use('/user',user)
 
 
-const Port = 2345 
+const Port = process.env.PORt || 2345 
 app.listen(Port, async()=>{
     try{
         await connect()
