@@ -3,30 +3,33 @@ const rout = express.Router()
 const User = require('../models/user.model')
 const uplode = require('../middle/file')
 
-rout.post('/',uplode.single('resume'),async(req,res)=>{
+rout.post('/',async(req,res)=>{
     
     try{
-        const NewUser = await User.create({
-             first_name  : req.body.first_name,
-             last_name  : req.body.last_name ,
-             resume  : req.file.path,
-             middleName :req.body.middleName ,
-             streetAddress : req.body.streetAddress ,
-             landMark :req.body.landMark ,
-             city :req.body.city ,
-             state :req.body.state ,
-             gender :req.body.gender ,
-             pincode :req.body.pincode ,
-             email :req.body.email ,
-             mobile :req.body.mobile ,
-             experience :req.body.experience ,
-             qualification :req.body.qualification ,
-             isShortListed :req.body.isShortListed ,
-             isInterviewScheduled :req.body.isInterviewScheduled ,
-             interviewDateTime :req.body.interviewDateTime ,
-             isHired :req.body.isHired ,
-             jobSchemaId :req.body.jobSchemaId 
-        })
+        // const NewUser = await User.create({
+        //      first_name  : req.body.first_name,
+        //      last_name  : req.body.last_name ,
+        //      resume  : req.file.path,
+        //      middleName :req.body.middleName ,
+        //      streetAddress : req.body.streetAddress ,
+        //      landMark :req.body.landMark ,
+        //      city :req.body.city ,
+        //      state :req.body.state ,
+        //      gender :req.body.gender ,
+        //      pincode :req.body.pincode ,
+        //      email :req.body.email ,
+        //      mobile :req.body.mobile ,
+        //      experience :req.body.experience ,
+        //      qualification :req.body.qualification ,
+        //      isShortListed :req.body.isShortListed ,
+        //      isInterviewScheduled :req.body.isInterviewScheduled ,
+        //      interviewDateTime :req.body.interviewDateTime ,
+        //      isHired :req.body.isHired ,
+        //      jobSchemaId :req.body.jobSchemaId 
+        // })
+
+        const NewUser = await User.create(req.body)
+
         return res.status(201).send(NewUser)
     }catch(e){
         res.status(400).send(e.message)
