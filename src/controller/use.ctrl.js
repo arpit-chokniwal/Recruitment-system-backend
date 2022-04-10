@@ -1,12 +1,32 @@
 const express = require('express')
 const rout = express.Router()
 const User = require('../models/user.model')
-const sendMail = require("../utils/mail.utils");
+const uplode = require('../middle/file')
 
-
-rout.post('/',async(req,res)=>{
+rout.post('/',uplode.single('resume'),async(req,res)=>{
+    console.log(req)
     try{
-        const NewUser = await User.create(req.body)
+        const NewUser = await User.create({
+             first_name  : req.body.first_name,
+             last_name  : req.body.last_name ,
+             resume  : req.file.path,
+             middleName :req.body.middleName ,
+             streetAddress : req.body.streetAddress ,
+             landMark :req.body.landMark ,
+             city :req.body.city ,
+             state :req.body.state ,
+             gender :req.body.gender ,
+             pincode :req.body.pincode ,
+             email :req.body.email ,
+             mobile :req.body.mobile ,
+             experience :req.body.experience ,
+             qualification :req.body.qualification ,
+             isShortListed :req.body.isShortListed ,
+             isInterviewScheduled :req.body.isInterviewScheduled ,
+             interviewDateTime :req.body.interviewDateTime ,
+             isHired :req.body.isHired ,
+             jobSchemaId :req.body.jobSchemaId 
+        })
         return res.status(201).send(NewUser)
     }catch(e){
         res.status(400).send(e)
@@ -16,10 +36,10 @@ rout.post('/',async(req,res)=>{
 
 rout.get('/',async(req,res)=>{
     try{
-        const AllUser = await User.find() .populate({ path: "jobSchemaId", select: ["companyName", "jobTitle","city","salary"],populate:{path:"adminSchemaId",select:["","companyName","userName","email"]}  }).lean().exec();
+        const AllUser = await User.find() .populate({ path:  "jobSchemaId" , select: [ "companyName" ,  "jobTitle" , "city" , "salary" ],populate:{path: "adminSchemaId" ,select:[ "companyName" , "userName" , "email" ]}  }).lean().exec();
 
-        return res.status(201).send(AllUser)
-        
+        return res.status(201).send({AllUser})
+
     }catch(e){
      res.status(400).send(e)       
     }
@@ -28,48 +48,9 @@ rout.get('/',async(req,res)=>{
 
 rout.patch('/:id', async(req,res)=>{
     try{
-        // console.log(req.body)
+        
         const UpdateUser = await User.findByIdAndUpdate(req.params.id,req.body,{new:true}).lean().exec()
-        // console.log(UpdateUser)
-
-
-        // if(isShortListed){
-
-           
-            
-        // }
-
-        // if(isInterviewScheduled){
-            
-        //     const message = `Your'e Interview is Scheduled`;
-
-        //     const user = UpdateUser;
-        
-        //     sendMail({
-        //       from: "h3ll00p@gmail.com",
-        //       to: user.email,
-        //       subject: `Interview Scheduled for ${user.firstName}`,
-        //       text: `Hi ${user.firstName}, ${message}`,
-        //     });
-        //     return res.status(201).send(UpdateUser)
-        // }
-
-        // if(isHired){
-
-        //     const message = `Congratulations You Get Hired`;
-
-        //     const user = UpdateUser;
-        
-        //     sendMail({
-        //       from: "h3ll00p@gmail.com",
-        //       to: user.email,
-        //       subject: `Offer Letter for ${user.firstName}`,
-        //       text: `Hi ${user.firstName}, ${message}`,
-        //     });
-        //     return res.status(201).send(UpdateUser)
-        // }
-
-        return res.status(201).send(UpdateUser)
+        return res.status(201).send({UpdateUser})
 
     }catch(e){
         res.status(400).send(e)
@@ -82,7 +63,7 @@ rout.patch('/:id', async(req,res)=>{
 rout.delete('/:id',async(req,res)=>{
     try{
         const deleteUser = await User.findByIdAndDelete(req.params.id)
-        return res.status(201).send(deleteUser)
+        return res.status(201).send({deleteUser})
     }catch(e){
         res.status(400).send(e)
     }

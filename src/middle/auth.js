@@ -1,7 +1,7 @@
 const User = require("../models/admin.model");
 
 
-const authCheck = async (req, res) => {
+const authCheck = async (req, res, next) => {
 
   try {
     const user = await User.findOne({ email: req.body.email });
@@ -20,7 +20,7 @@ const authCheck = async (req, res) => {
       });
     }
     
-    return res.status(200).send({ Status: true });
+    next()
    
   } catch (e) {
     return res.status(500).send(e.message);
